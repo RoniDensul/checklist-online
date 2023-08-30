@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checklist Online</title>
+</head>
+<body>
+    <h1>Minha Checklist</h1>
+
+    <input type="text" id="newItem" placeholder="Digite um novo item">
+    <button onclick="addItem()">Adicionar</button>
+
+    <ul id="checklist">
+    </ul>
+
+    <script>
+        function addItem() {
+            var newItemText = document.getElementById("newItem").value;
+            if (newItemText.trim() !== "") {
+                var newItem = document.createElement("li");
+                newItem.innerHTML = `
+                    <input type="checkbox" onchange="toggleItem(this)">
+                    <span>${newItemText}</span>
+                    <button onclick="removeItem(this)">Remover</button>
+                `;
+                document.getElementById("checklist").appendChild(newItem);
+                document.getElementById("newItem").value = "";
+            }
+        }
+
+        function toggleItem(checkbox) {
+            var itemText = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                itemText.style.textDecoration = "line-through";
+            } else {
+                itemText.style.textDecoration = "none";
+            }
+        }
+
+        function removeItem(button) {
+            var item = button.parentNode;
+            item.parentNode.removeChild(item);
+        }
+    </script>
+</body>
+</html>
